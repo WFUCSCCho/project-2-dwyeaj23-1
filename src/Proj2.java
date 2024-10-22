@@ -46,11 +46,28 @@ public class Proj2 {
         long avlSortedSearchTime = measureSearchTime(avlSorted, pokemonList);
         long avlRandomSearchTime = measureSearchTime(avlRandom, pokemonList);
 
+        // Convert nanoseconds to seconds
+        double bstSortedInsertTimeSec = bstSortedInsertTime / 1e9;
+        double bstRandomInsertTimeSec = bstRandomInsertTime / 1e9;
+        double avlSortedInsertTimeSec = avlSortedInsertTime / 1e9;
+        double avlRandomInsertTimeSec = avlRandomInsertTime / 1e9;
+
+        double bstSortedSearchTimeSec = bstSortedSearchTime / 1e9;
+        double bstRandomSearchTimeSec = bstRandomSearchTime / 1e9;
+        double avlSortedSearchTimeSec = avlSortedSearchTime / 1e9;
+        double avlRandomSearchTimeSec = avlRandomSearchTime / 1e9;
+
+        // Print results to console in a human-readable format
+        printResultsToConsole(numLines, bstSortedInsertTimeSec, bstRandomInsertTimeSec,
+                avlSortedInsertTimeSec, avlRandomInsertTimeSec,
+                bstSortedSearchTimeSec, bstRandomSearchTimeSec,
+                avlSortedSearchTimeSec, avlRandomSearchTimeSec);
+
         // Step 5: Write results to output.txt
-        writeResultsToFile(numLines, bstSortedInsertTime, bstRandomInsertTime,
-                avlSortedInsertTime, avlRandomInsertTime,
-                bstSortedSearchTime, bstRandomSearchTime,
-                avlSortedSearchTime, avlRandomSearchTime);
+        writeResultsToFile(numLines, bstSortedInsertTimeSec, bstRandomInsertTimeSec,
+                avlSortedInsertTimeSec, avlRandomInsertTimeSec,
+                bstSortedSearchTimeSec, bstRandomSearchTimeSec,
+                avlSortedSearchTimeSec, avlRandomSearchTimeSec);
     }
 
     // Method to load Pokemon data from the CSV file
@@ -117,7 +134,7 @@ public class Proj2 {
     private static long measureSearchTime(BST<Pokemon> bst, ArrayList<Pokemon> data) {
         long startTime = System.nanoTime();
         for (Pokemon pokemon : data) {
-            bst.search(pokemon); // Use search() instead of contains()
+            bst.search(pokemon);
         }
         return System.nanoTime() - startTime;
     }
@@ -131,11 +148,29 @@ public class Proj2 {
         return System.nanoTime() - startTime;
     }
 
+    // Helper method to print results to console in a human-readable format
+    private static void printResultsToConsole(int numLines, double bstSortedInsert, double bstRandomInsert,
+                                              double avlSortedInsert, double avlRandomInsert,
+                                              double bstSortedSearch, double bstRandomSearch,
+                                              double avlSortedSearch, double avlRandomSearch) {
+        System.out.println("\nResults for " + numLines + " lines:");
+        System.out.println("-------------------------------------------");
+        System.out.println("BST (Sorted Insert): " + bstSortedInsert + " s");
+        System.out.println("BST (Random Insert): " + bstRandomInsert + " s");
+        System.out.println("AVL (Sorted Insert): " + avlSortedInsert + " s");
+        System.out.println("AVL (Random Insert): " + avlRandomInsert + " s");
+        System.out.println("BST (Sorted Search): " + bstSortedSearch + " s");
+        System.out.println("BST (Random Search): " + bstRandomSearch + " s");
+        System.out.println("AVL (Sorted Search): " + avlSortedSearch + " s");
+        System.out.println("AVL (Random Search): " + avlRandomSearch + " s");
+        System.out.println("-------------------------------------------\n");
+    }
+
     // Helper method to write results to output.txt
-    private static void writeResultsToFile(int numLines, long bstSortedInsert, long bstRandomInsert,
-                                           long avlSortedInsert, long avlRandomInsert,
-                                           long bstSortedSearch, long bstRandomSearch,
-                                           long avlSortedSearch, long avlRandomSearch) throws IOException {
+    private static void writeResultsToFile(int numLines, double bstSortedInsert, double bstRandomInsert,
+                                           double avlSortedInsert, double avlRandomInsert,
+                                           double bstSortedSearch, double bstRandomSearch,
+                                           double avlSortedSearch, double avlRandomSearch) throws IOException {
         FileOutputStream output = new FileOutputStream("output.txt", true);
         String result = numLines + "," + bstSortedInsert + "," + bstRandomInsert + ","
                 + avlSortedInsert + "," + avlRandomInsert + ","
