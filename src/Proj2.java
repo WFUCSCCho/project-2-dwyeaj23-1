@@ -1,3 +1,10 @@
+/**
+ * @file: Proj2.java
+ * @description: This program measures and compares the running time and rate of insertion and search operations for BSTs and AVL Trees using sorted and shuffled datasets. It generates results in both console and CSV format.
+ * @author: Andrew Dwyer
+ * @date: October 22, 2024
+ */
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileNotFoundException;

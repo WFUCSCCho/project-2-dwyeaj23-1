@@ -1,7 +1,10 @@
 /**
- * Implements an AVL tree.
- * Note that all "matching" is based on the compareTo method.
+ * @file: AvlTree.java
+ * @description: This class implements an AVL Tree, a self-balancing Binary Search Tree (BST).
+ * @author: Andrew Dwyer
+ * @date: October 22, 2024
  */
+
 public class AvlTree<AnyType extends Comparable<? super AnyType>> {
     /**
      * Construct the tree.
